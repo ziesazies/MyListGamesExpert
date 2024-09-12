@@ -1,0 +1,9 @@
+disabled_rules: # rule identifiers to exclude from running
+- trailing_whitespace
+- legacy_constant
+- unused_optional_binding
+- function_body_length
+- blanket_disable_command
+
+excluded:
+- Pods
