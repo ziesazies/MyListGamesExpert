@@ -5,8 +5,8 @@ workflows:
       xcode: latest
       cocoapods: default
       vars:
-        XCODE_PROJECT: "MyListGameExpert.xcworkspace" # Isikan nama project Anda.
-        XCODE_SCHEME: "MyListGameExper" # Isikan nama scheme project Anda.
+        XCODE_PROJECT: "MyListGamesExpert.xcworkspace" # Isikan nama project Anda.
+        XCODE_SCHEME: "MyListGamesExpert" # Isikan nama scheme project Anda.
     scripts:
       - name: Run tests
         script: |
