@@ -1,29 +1,27 @@
 workflows:
   ios-project-debug:
-    name: iOS Debug Build
+    name: iOS debug
     environment:
       xcode: latest
       cocoapods: default
       vars:
-        XCODE_WORKSPACE: "MyListGamesExpert.xcworkspace"
-        XCODE_SCHEME: "MyListGamesExpert"
+        XCODE_WORKSPACE: "MyListGamesExpert.xcworkspace" # workspace kamu
+        XCODE_SCHEME: "MyListGamesExpert" # nama scheme kamu
     scripts:
-      - name: Run tests
+      - name: Install pods
         script: |
-          xcodebuild \
-            -workspace "$XCODE_WORKSPACE" \
-            -scheme "$XCODE_SCHEME" \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.1' \
-            clean build test \
-            CODE_SIGN_IDENTITY="" \
-            CODE_SIGNING_REQUIRED=NO
+          cd ios
+          pod install
+          cd ..
 
       - name: Build debug app
         script: |
           xcodebuild \
             -workspace "$XCODE_WORKSPACE" \
             -scheme "$XCODE_SCHEME" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.1' \
+            clean build \
             CODE_SIGN_IDENTITY="" \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGNING_ALLOWED=NO
