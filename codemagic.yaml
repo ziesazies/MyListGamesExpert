@@ -1,28 +1,36 @@
 workflows:
-  ios-project-debug: # workflow ID
-    name: iOS debug # workflow name
+  ios-project-debug:
+    name: iOS Debug Build
     environment:
       xcode: latest
       cocoapods: default
       vars:
-        XCODE_PROJECT: "MyListGamesExpert.xcworkspace" # Isikan nama project Anda.
-        XCODE_SCHEME: "MyListGamesExpert" # Isikan nama scheme project Anda.
+        XCODE_WORKSPACE: "MyListGamesExpert.xcworkspace"
+        XCODE_SCHEME: "MyListGamesExpert"
     scripts:
       - name: Run tests
         script: |
           xcodebuild \
-          -project "$XCODE_PROJECT" \
-          -scheme "$XCODE_SCHEME" \
-          -sdk iphonesimulator \
-          -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.1' \
-          clean build test CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
+            -workspace "$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 12 Pro Max,OS=16.1' \
+            clean build test \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO
+
       - name: Build debug app
         script: |
-          xcodebuild build -project "$XCODE_PROJECT" \
-          -scheme "$XCODE_SCHEME" \
-          CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGNING_ALLOWED=NO
+          xcodebuild \
+            -workspace "$XCODE_WORKSPACE" \
+            -scheme "$XCODE_SCHEME" \
+            CODE_SIGN_IDENTITY="" \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGNING_ALLOWED=NO
+
     artifacts:
       - $HOME/Library/Developer/Xcode/DerivedData/**/Build/**/*.app
+
     publishing:
       email:
         recipients:
